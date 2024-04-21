@@ -1,26 +1,25 @@
 import React from 'react';
-import logo from './logo.svg';
+import { useState } from 'react';
+import Count from './components/Count';
 import './App.css';
-
+import Users from './components/Users';
+import { Provider } from 'react-redux';
+import { store } from './components/store';
+import {BrowserRouter as Router,Routes,Route} from 'react-router-dom'
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+	const [num, setNum] = useState<number>(1);
+	return (
+		<Provider store={store}>
+			<div className="App">
+				<Router>
+					<Routes>
+						<Route path="/user" element={<Users />} />
+						<Route path="/" element={<Count num={num} setNum={setNum} />} />
+					</Routes>
+				</Router>
+			</div>
+		</Provider>
+	);
 }
 
 export default App;
